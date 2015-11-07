@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Unity | My Octopress Blog]]></title>
+  <link href="http://ariequ.github.io/blog/categories/unity/atom.xml" rel="self"/>
+  <link href="http://ariequ.github.io/"/>
+  <updated>2015-11-07T18:59:07+08:00</updated>
+  <id>http://ariequ.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[模型动画查看器]]></title>
+    <link href="http://ariequ.github.io/blog/2014/10/30/model-animation-viewer/"/>
+    <updated>2014-10-30T23:48:44+08:00</updated>
+    <id>http://ariequ.github.io/blog/2014/10/30/model-animation-viewer</id>
+    <content type="html"><![CDATA[<p>美术制作的3D模型动画文件，没有很好的预览手段，往往需要手动创建Animator,然后再拖对应的动画文件到State中，在模型动画数量增多的时候，手动处理这些问题往往是耗时低效的。所以就有了制作模型动画查看器的需求。</p>
+
+<p>基本的思路为读取模型文件，创建Animation Controller, 将动画文件添加到Animation Controller的Layer，并建立不同状态间的Transition. 代码如下:</p>
+
+<pre><code class="C#">using UnityEngine;
+using System.Collections;
+using UnityEditor;
+using UnityEditorInternal;
+using System.IO;
+using System.Collections.Generic;
+
+public class AnimationViewer : Editor
+{
+    private static string ModelPath = Application.dataPath + "/Model";
+    private static string animationControllerPath = "Assets/AnimationController";
+    private static string PrefabPath = "Assets/Resources/Prefabs";
+    private static string FileName = "ModelNames"; 
+    private static StreamWriter writer;
+
+    static void DoCreateAnimationAssets ()
+    {
+        //获得模型动画所在文件夹
+        DirectoryInfo raw = new DirectoryInfo (ModelPath);      
+        string appendString = "";
+
+        //遍历模型动画文件夹
+        foreach (DirectoryInfo dictory in raw.GetDirectories()) 
+        {
+            appendString += ":" + dictory.Name;
+            State lastState = null;
+
+            //生成AnimationController
+            AnimatorController animatorController = AnimatorController.CreateAnimatorControllerAtPath (animationControllerPath + "/" + dictory.Name + ".controller");
+            //得到AnimationController的Layer， 默认layer为base
+            AnimatorControllerLayer layer = animatorController.GetLayer (0);
+            List&lt;State&gt; stateList = new List&lt;State&gt;();
+            foreach (FileInfo file in dictory.GetFiles()) {
+                //动画名称遵循"模型名@动画名"的规则，并除去.meta文件
+                if (file.Name.Contains ("@") &amp;&amp; !file.Name.Contains (".meta")) {
+                    //把动画文件保存在我们创建的AnimationController中，并与上一个动画状态做Transition.
+                    string fbxPath = "Assets/Model/" + dictory.Name + "/" + file.Name;
+                    lastState = AddStateTransition (fbxPath, layer, lastState);
+                    stateList.Add(lastState);
+                }
+            }
+
+            UnityEditorInternal.StateMachine sm = layer.stateMachine;
+            //首位详解，形成一个循环播放的效果
+            sm.AddTransition(stateList[stateList.Count -1], stateList[0]);
+
+            //保存为Prefab
+            BuildPrefab (dictory, animatorController);
+        }
+
+        AppendString (appendString);
+    }
+
+    static void AppendString (string appendString)
+    {
+        //记录所有的模型名称
+        File.WriteAllText (Application.dataPath + "/Resources/" + FileName + ".txt", appendString);
+    }
+
+    private static State AddStateTransition (string path, AnimatorControllerLayer layer, State lastState)
+    {
+        UnityEditorInternal.StateMachine sm = layer.stateMachine;
+        //根据动画文件读取它的AnimationClip对象
+        AnimationClip newClip = AssetDatabase.LoadAssetAtPath (path, typeof(AnimationClip)) as AnimationClip;
+        AnimationUtility.SetAnimationType (newClip, ModelImporterAnimationType.Generic);
+        //取出动画名子 添加到state里面
+        State state = sm.AddState (newClip.name);
+        state.SetAnimationClip (newClip, layer);
+        //把state添加在layer里面
+        if (lastState ！= null) 
+        {
+            sm.AddTransition (lastState, state);
+        }
+
+        return state;
+    }
+
+    private static void BuildPrefab (DirectoryInfo dictory, AnimatorController animatorCountorller)
+    {
+        string modelPath = "Assets/Model/" + dictory.Name + "/" + dictory.Name + ".FBX";
+
+        GameObject go = AssetDatabase.LoadAssetAtPath (modelPath, typeof(GameObject)) as GameObject;
+        go.name = dictory.Name;
+
+        Animator animator = go.GetComponent&lt;Animator&gt; ();
+        animator.runtimeAnimatorController = animatorCountorller;
+
+        PrefabUtility.CreatePrefab (PrefabPath + "/" + go.name + ".prefab", go);
+    }
+}
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Delegates Events and Actions in C#]]></title>
+    <link href="http://ariequ.github.io/blog/2014/09/19/delegate-event-action/"/>
+    <updated>2014-09-19T20:01:41+08:00</updated>
+    <id>http://ariequ.github.io/blog/2014/09/19/delegate-event-action</id>
+    <content type="html"><![CDATA[<ul>
+<li>delegate  example</li>
+</ul>
+
+
+<p>使用delegate的目的是在方法中传递方法指针。通过声明delegate的方法签名，可以在运行时在符合delegate方法签名的方法中选择要执行的方法。</p>
+
+<pre><code class="C#">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ModernLanguageConstructs
+{
+    class Program
+    {
+        // Part 1 - Explicit declaration of a delegate 
+        //(helps a compiler ensure type safety)
+        public delegate double delegateConvertTemperature(double sourceTemp);
+
+        // A sample class to play with
+        class TemperatureConverterImp
+        {
+            // Part 2 - Will be attached to a delegate later in the code
+            public double ConvertToFahrenheit(double celsius)
+            {
+                return (celsius * 9.0/5.0) + 32.0;
+            }
+
+            //  Part 3 - Will be attached to a delegate later in the code
+            public double ConvertToCelsius(double fahrenheit)
+            {
+                return (fahrenheit - 32.0) * 5.0 / 9.0;
+            }
+        }
+
+
+        static void Main(string[] args)
+        {
+            //  Part 4 - Instantiate the main object
+            TemperatureConverterImp obj = new TemperatureConverterImp();
+
+            //  Part 5 - Intantiate delegate #1
+            delegateConvertTemperature delConvertToFahrenheit =
+                         new delegateConvertTemperature(obj.ConvertToFahrenheit);
+
+            //  Part 6 - Intantiate delegate #2
+            delegateConvertTemperature delConvertToCelsius =
+                         new delegateConvertTemperature(obj.ConvertToCelsius);
+
+            // Use delegates to accomplish work
+
+            //  Part 7 - delegate #1
+            double celsius = 0.0;
+            double fahrenheit = delConvertToFahrenheit(celsius);
+            string msg1 = string.Format("Celsius = {0}, Fahrenheit = {1}",
+                                         celsius, fahrenheit);
+            Console.WriteLine(msg1);
+
+            //  Part 8 - delegate #2
+            fahrenheit = 212.0;
+            celsius = delConvertToCelsius(fahrenheit);
+            string msg2 = string.Format("Celsius = {0}, Fahrenheit = {1}",
+                                         celsius, fahrenheit);
+            Console.WriteLine(msg2);
+        }
+    }
+}
+</code></pre>
+
+<p><img src="/images/delegate_example_result.png"></p>
+
+<ul>
+<li>Event example<br/>
+Event是一种特殊类型的delegate，使用Event可以很方便的实现观察者模式。</li>
+</ul>
+
+
+<pre><code class="C#">    public class SampleEventArgs
+    {
+        public SampleEventArgs(string s) { Text = s; }
+        public String Text {get; private set;} // readonly
+    }
+    public class Publisher
+    {
+        // Declare the delegate (if using non-generic pattern).
+        public delegate void SampleEventHandler(object sender, SampleEventArgs e);
+
+        // Declare the event.
+        public event SampleEventHandler SampleEvent;
+
+        // Wrap the event in a protected virtual method
+        // to enable derived classes to raise the event.
+        protected virtual void RaiseSampleEvent()
+        {
+            // Raise the event by using the () operator.
+            if (SampleEvent != null)
+                SampleEvent(this, new SampleEventArgs("Hello"));
+        }
+    }
+</code></pre>
+
+<ul>
+<li>Action example<br/>
+Action是一种语法糖，它是一种不需要提前声明的delegate，使得delegate的使用更加方便，局限性就是不能定义返回值。（Func&lt;> Delegates是一种可以定义返回值的语法糖）。</li>
+</ul>
+
+
+<pre><code class="C#">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ModernLanguageConstructs
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Part 1 - First action that takes an int and converts it to hex
+            Action&lt;int&gt; displayHex = delegate(int intValue)
+            {
+                Console.WriteLine(intValue.ToString("X"));
+            };
+
+            // Part 2 - Second action that takes a hex string and 
+            // converts it to an int
+            Action&lt;string&gt; displayInteger = delegate(string hexValue)
+            {
+                Console.WriteLine(int.Parse(hexValue,
+                    System.Globalization.NumberStyles.HexNumber));
+            };
+
+            // Part 3 - exercise Action methods
+            displayHex(16);
+            displayInteger("10");
+        }
+    }
+}
+</code></pre>
+
+<blockquote><p>参考资料：<br/>
+1. <a href="http://blogs.msdn.com/b/brunoterkaly/archive/2012/03/02/c-delegates-actions-lambdas-keeping-it-super-simple.aspx">C# Delegates, Actions, Funcs, Lambdas–Keeping it super simple</a><br/>
+2. <a href="http://msdn.microsoft.com/zh-cn/library/8627sbea.aspx">event（C# 参考）</a></p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[从PSD UI制作到Unity UGUI生成的工作流]]></title>
+    <link href="http://ariequ.github.io/blog/2014/09/16/psd2ugui/"/>
+    <updated>2014-09-16T22:31:04+08:00</updated>
+    <id>http://ariequ.github.io/blog/2014/09/16/psd2ugui</id>
+    <content type="html"><![CDATA[<p>Unity在4.6版本中将要发布新的UI系统UGUI, 关于UGUI的介绍,请查看<a href="http://blogs.unity3d.com/2014/05/28/overview-of-the-new-ui-system/">Overview of the New UI System</a>。</p>
+
+<pre><code>一般来说，游戏UI的制作步骤为:  
+1. 美术在设计软件（PhotoShop，Flash）中进行UI的设计.  
+2. 美术导出切分好的散图和整体效果图。  
+3. 程序在程序的开发环境中参照效果图实现UI的布局和功能。  
+</code></pre>
+
+<blockquote><p>这种工作流就经常导致程序制作出的UI效果和美术的设计存在偏差，并且对于美术的修改来说也不够友好。</p></blockquote>
+
+<p>使用Unity开发UI，理想的情况是美术也能够使用Untity进行设计和实现。但现实往往是美术不太接受使用不太熟悉的软件进行创作。并且美术如果和程序公用同一项目，在版本维护中出错的机会也比较大。</p>
+
+<p>不同系统之间的集成通常都是通过中间语言的传递来实现的。参考<a href="http://blogs.unity3d.com/2013/05/17/a-good-workflow-to-smoothly-import-2d-content-into-unity-part-i-authoring-and-exporting/">A good workflow to smoothly import 2D content into Unity</a>:</p>
+
+<pre><code>本文给出的“从PSD UI制作到Unity UGUI生成的工作流”是：  
+1. 从PSD中导出可以描述UI的配置和对应的图片资源。  
+2. 使用Unity读取配置，使用图片资源生成对应的UI.  
+</code></pre>
+
+<p>其中，PSD中的"组"与"层"的组织和命名需要遵循一定的规范。组织规范定义了UI的结构，命名规范定义了UI的组件类型（包括：Button、Label、Image、ScrollView、ListView等）和参数。从Photoshop导出对应配置是使用Photoshop支持的<a href="http://www.adobe.com/cn/devnet/scripting.html">ExtendScript</a>，通过遍历PSD，生成UI的结构并使用XML保存，同时也会导出相应的图片资源。</p>
+
+<h5>PSD预览与对应的层级结构</h5>
+
+<p><img class="left" src="/images/0916_2.png" width="400">
+<img class="left" src="/images/0916_1.png" width="290"></p>
+
+<h5>资源复用问题</h5>
+
+<p>通过包含特殊字段的命名（如：Common），可以指定某些图片引用自其他的PSD文件，这样当Unity导入的时候就可以根据命名去查找对应的图片资源，从而保证相同的图片资源在Unity的资源中仅存在一份。</p>
+
+<h5>Sprite Packer使用</h5>
+
+<p>UI资源图片在导入的时候通过设置类型为Sprite，然后通过指定Packing Tag，可以将相同的Packing Tag的图片在Build时打包到同一个图片集，从而降低DrawCall.</p>
+
+<blockquote><p>参考资料:<br/>
+    1. <a href="http://blogs.unity3d.com/2013/05/17/a-good-workflow-to-smoothly-import-2d-content-into-unity-part-i-authoring-and-exporting/">A good workflow to smoothly import 2D content into Unity</a></p></blockquote>
+]]></content>
+  </entry>
+  
+</feed>

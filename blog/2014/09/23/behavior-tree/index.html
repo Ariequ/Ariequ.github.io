@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Behavior Tree(行为树)的C#实现 - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="在做一个战场上士兵自动战斗的功能的时候，查看了很多关于Behavior Tree的相关内容。在Unity中也有很多现成的可视化插件工具，可以很方便的定义和实现Behavior Tree。但是因为种种不符合需求的问题，最终还是选择自己来实现Behavior Tree的机制。 定义士兵的AI， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ariequ.github.io/blog/2014/09/23/behavior-tree">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" -->
+<!--link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ariequ.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/blog/categories">Categories</a></li>
+  <li><a href="/blog/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Behavior Tree(行为树)的C#实现</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-23T22:26:46+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>10:26 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>在做一个战场上士兵自动战斗的功能的时候，查看了很多关于Behavior Tree的相关内容。在Unity中也有很多现成的可视化插件工具，可以很方便的定义和实现Behavior Tree。但是因为种种不符合需求的问题，最终还是选择自己来实现Behavior Tree的机制。</p>
+
+<p>定义士兵的AI，使用的是XML配置文件，XML的结构与实际生成的Behavior Tree结构非常一致。</p>
+
+<p>Behavior Tree的结点类型包括Composite Node、Decorator Node、Condition Node、Action Node。其中Action Node是AI主体所能执行的具体行为，而通往各个叶子结点（Action Node）的路径就是Behavior Tree根据环境所做的决策过程。</p>
+
+<p>先来看一段士兵的Behavior Tree的配置文件</p>
+
+<figure class='code'><figcaption><span>Solider Behavior Tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="no">Selector</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Solider&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="no">Action</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.DieAction&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="no">Condition</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.DieCondition&quot;</span> <span class="sr">/&gt;</span>
+</span><span class='line'><span class="sr"> &lt;/</span><span class="no">Action</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="no">Action</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.IdelAction&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="no">Condition</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.NoEnemyCondition&quot;</span> <span class="sr">/&gt;</span>
+</span><span class='line'><span class="sr"> &lt;/</span><span class="no">Action</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="no">Decorator</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;RepeatDecorator&quot;</span> <span class="n">repeatCount</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="no">Sequence</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Attack_A&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>          <span class="o">&lt;</span><span class="no">Action</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.AttackAAction&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>          <span class="o">&lt;</span><span class="sr">/Action&gt;</span>
+</span><span class='line'><span class="sr">     &lt;/</span><span class="no">Sequence</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="sr">/Decorator&gt;</span>
+</span><span class='line'><span class="sr"> &lt;Decorator name=&quot;RepeatToSuccessDecorator&quot; repeatCount=&quot;1&quot;&gt;</span>
+</span><span class='line'><span class="sr">     &lt;Selector name=&quot;Move&quot;&gt;</span>
+</span><span class='line'><span class="sr">         &lt;Sequence name=&quot;MoveToTracingTarget&quot;&gt;</span>
+</span><span class='line'><span class="sr">             &lt;Action name=&quot;Battle.ChooseNewMoveTarget&quot; /</span><span class="o">&gt;</span>
+</span><span class='line'>              <span class="o">&lt;</span><span class="no">Action</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.MoveToTowoardTargetAttackingPlaceAction&quot;</span> <span class="sr">/&gt;</span>
+</span><span class='line'><span class="sr">         &lt;/</span><span class="no">Sequence</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="sr">/Selector&gt;</span>
+</span><span class='line'><span class="sr"> &lt;/</span><span class="no">Decorator</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="no">Selector</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Solider_Attacked&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="no">Condition</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;NOTCondition&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>          <span class="o">&lt;</span><span class="no">Condition</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;EqualCondition&quot;</span> <span class="n">property</span><span class="o">=</span><span class="s2">&quot;attackStatus&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="sr">/&gt;</span>
+</span><span class='line'><span class="sr">     &lt;/</span><span class="no">Condition</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="no">Action</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.BackAction&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>          <span class="o">&lt;</span><span class="no">Condition</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;EqualCondition&quot;</span> <span class="n">property</span><span class="o">=</span><span class="s2">&quot;attackStatus&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;2&quot;</span> <span class="sr">/&gt;</span>
+</span><span class='line'><span class="sr">     &lt;/</span><span class="no">Action</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="sr">/Selector&gt;</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="no">Selector</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这段配置定义了士兵的行为，包括死亡、Idle、攻击、移动的相关决策行为和决策条件。通过结点的名称也很容易就能够推断出所要实现的功能。</p>
+
+<p>Behavior的实现</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-09-23T22:26:46+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>10:26 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/behaviortree/'>behaviortree</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ariequ.github.io/blog/2014/09/23/behavior-tree/" data-via="" data-counturl="http://ariequ.github.io/blog/2014/09/23/behavior-tree/" >Tweet</a>
+  
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/09/19/delegate-event-action/" title="Previous Post: Delegates Events and Actions in C#">&laquo; Delegates Events and Actions in C#</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/09/24/parachute/" title="Next Post: parachute">parachute &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/06/18/green-ninja/">Green Ninja</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/18/green-ninjia/">Green Ninjia</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/snake-preview/">Snake_preview</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/snake/">贪吃蛇+消除+俄罗斯方块</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/18/summary/">Summary</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>基于GitHub + Octopress博客搭建与MarkDown语法初试 - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="通过GitHub + Octopress搭建了这个静态博客。替换了默认模板的favicon。希望可以坚持写下去。主要是记录独立游戏的开发过程，希望能够对自己有益，如果恰巧也能对他人有益，就更好了。 现在还不太了解Markdown的语法，默认的模板也不太喜欢。文章的排版和博客样式统统都要改改改。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ariequ.github.io/blog/2014/09/11/first-blog">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" -->
+<!--link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ariequ.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/blog/categories">Categories</a></li>
+  <li><a href="/blog/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">基于GitHub + Octopress博客搭建与MarkDown语法初试</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-11T00:53:12+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:53 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>通过GitHub + Octopress搭建了这个静态博客。替换了默认模板的favicon。希望可以坚持写下去。主要是记录独立游戏的开发过程，希望能够对自己有益，如果恰巧也能对他人有益，就更好了。</p>
+
+<p>现在还不太了解Markdown的语法，默认的模板也不太喜欢。文章的排版和博客样式统统都要改改改。不管内容，首先还是要好看。</p>
+
+<hr />
+
+<p>第二日更新：</p>
+
+<p>在<a href="http://www.jianshu.com/p/q81RER">献给写作者的 Markdown 新手指南</a>中介绍了主要的一些Markdown语法，看起来很有帮助。原来MarkDown的语法如此简单直接。</p>
+
+<h4>例如插入图片，使用<a href="http://octopress.org/docs/plugins/image-tag/">Image Tag</a>：</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{% img /images/A-Team-Logo.png 200 %}</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>其中图片是放在images路径下。</strong></p>
+
+<p><img src="/images/A-Team-Logo.png" width="200"></p>
+
+<h4>插入代码的方法，使用<a href="http://octopress.org/docs/blogging/code/">Sharing Code Snippets</a></h4>
+
+<pre><code>```
+{% img /images/A-Team-Logo.png 200 %}
+```
+</code></pre>
+
+<hr />
+
+<p>第三日更新：</p>
+
+<p>今天尝试了修改博客的样式和布局，增加了About和Categories.</p>
+
+<blockquote><p>参考资料：<br/>
+1. <a href="http://beyondvincent.com/blog/2013/08/03/108-creating-a-github-blog-using-octopress/">利用Octopress搭建一个Github博客</a><br/>
+2. <a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">象写程序一样写博客：搭建基于github的博客</a><br/>
+3. <a href="http://www.jianshu.com/p/q81RER">献给写作者的 Markdown 新手指南</a><br/>
+4. <a href="http://equation85.github.io/blog/markdown-examples/">Markdown语法示例</a><br/>
+5. <a href="http://octopress.org/docs/blogging/code/">Sharing Code Snippets</a><br/>
+6. <a href="http://cn.soulmachine.me/blog/20130402/">灵魂机器 我的Octopress配置</a><br/>
+7. <a href="http://vigodome.com/blog/2011/12/22/show-categories-and-post-count-in-octopress/">Show Categories and Post Count in Octopress</a><br/>
+8. <a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">Inserting Liquid Syntax Into Octopress Codeblock</a></p></blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-09-11T00:53:12+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:53 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/octopress/'>octopress</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ariequ.github.io/blog/2014/09/11/first-blog/" data-via="" data-counturl="http://ariequ.github.io/blog/2014/09/11/first-blog/" >Tweet</a>
+  
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/09/16/psd2ugui/" title="Next Post: 从PSD UI制作到Unity UGUI生成的工作流">从PSD UI制作到Unity UGUI生成的工作流 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/06/18/green-ninja/">Green Ninja</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/18/green-ninjia/">Green Ninjia</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/snake-preview/">Snake_preview</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/snake/">贪吃蛇+消除+俄罗斯方块</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/18/summary/">Summary</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

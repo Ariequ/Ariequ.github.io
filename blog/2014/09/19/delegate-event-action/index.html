@@ -1,0 +1,488 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Delegates Events and Actions in C# - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="delegate example 使用delegate的目的是在方法中传递方法指针。通过声明delegate的方法签名，可以在运行时在符合delegate方法签名的方法中选择要执行的方法。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ariequ.github.io/blog/2014/09/19/delegate-event-action">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" -->
+<!--link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ariequ.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/blog/categories">Categories</a></li>
+  <li><a href="/blog/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Delegates Events and Actions in C#</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-19T20:01:41+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>8:01 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><ul>
+<li>delegate  example</li>
+</ul>
+
+
+<p>使用delegate的目的是在方法中传递方法指针。通过声明delegate的方法签名，可以在运行时在符合delegate方法签名的方法中选择要执行的方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+</pre></td><td class='code'><pre><code class='C#'><span class='line'><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.Text</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nn">ModernLanguageConstructs</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">Program</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// Part 1 - Explicit declaration of a delegate </span>
+</span><span class='line'>        <span class="c1">//(helps a compiler ensure type safety)</span>
+</span><span class='line'>        <span class="k">public</span> <span class="k">delegate</span> <span class="kt">double</span> <span class="nf">delegateConvertTemperature</span><span class="p">(</span><span class="kt">double</span> <span class="n">sourceTemp</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// A sample class to play with</span>
+</span><span class='line'>        <span class="k">class</span> <span class="nc">TemperatureConverterImp</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// Part 2 - Will be attached to a delegate later in the code</span>
+</span><span class='line'>            <span class="k">public</span> <span class="kt">double</span> <span class="nf">ConvertToFahrenheit</span><span class="p">(</span><span class="kt">double</span> <span class="n">celsius</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="p">(</span><span class="n">celsius</span> <span class="p">*</span> <span class="m">9.0</span><span class="p">/</span><span class="m">5.0</span><span class="p">)</span> <span class="p">+</span> <span class="m">32.0</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">//  Part 3 - Will be attached to a delegate later in the code</span>
+</span><span class='line'>            <span class="k">public</span> <span class="kt">double</span> <span class="nf">ConvertToCelsius</span><span class="p">(</span><span class="kt">double</span> <span class="n">fahrenheit</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="p">(</span><span class="n">fahrenheit</span> <span class="p">-</span> <span class="m">32.0</span><span class="p">)</span> <span class="p">*</span> <span class="m">5.0</span> <span class="p">/</span> <span class="m">9.0</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="c1">//  Part 4 - Instantiate the main object</span>
+</span><span class='line'>            <span class="n">TemperatureConverterImp</span> <span class="n">obj</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TemperatureConverterImp</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">//  Part 5 - Intantiate delegate #1</span>
+</span><span class='line'>            <span class="n">delegateConvertTemperature</span> <span class="n">delConvertToFahrenheit</span> <span class="p">=</span>
+</span><span class='line'>                         <span class="k">new</span> <span class="nf">delegateConvertTemperature</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="n">ConvertToFahrenheit</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">//  Part 6 - Intantiate delegate #2</span>
+</span><span class='line'>            <span class="n">delegateConvertTemperature</span> <span class="n">delConvertToCelsius</span> <span class="p">=</span>
+</span><span class='line'>                         <span class="k">new</span> <span class="nf">delegateConvertTemperature</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="n">ConvertToCelsius</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">// Use delegates to accomplish work</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">//  Part 7 - delegate #1</span>
+</span><span class='line'>            <span class="kt">double</span> <span class="n">celsius</span> <span class="p">=</span> <span class="m">0.0</span><span class="p">;</span>
+</span><span class='line'>            <span class="kt">double</span> <span class="n">fahrenheit</span> <span class="p">=</span> <span class="n">delConvertToFahrenheit</span><span class="p">(</span><span class="n">celsius</span><span class="p">);</span>
+</span><span class='line'>            <span class="kt">string</span> <span class="n">msg1</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;Celsius = {0}, Fahrenheit = {1}&quot;</span><span class="p">,</span>
+</span><span class='line'>                                         <span class="n">celsius</span><span class="p">,</span> <span class="n">fahrenheit</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">msg1</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">//  Part 8 - delegate #2</span>
+</span><span class='line'>            <span class="n">fahrenheit</span> <span class="p">=</span> <span class="m">212.0</span><span class="p">;</span>
+</span><span class='line'>            <span class="n">celsius</span> <span class="p">=</span> <span class="n">delConvertToCelsius</span><span class="p">(</span><span class="n">fahrenheit</span><span class="p">);</span>
+</span><span class='line'>            <span class="kt">string</span> <span class="n">msg2</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;Celsius = {0}, Fahrenheit = {1}&quot;</span><span class="p">,</span>
+</span><span class='line'>                                         <span class="n">celsius</span><span class="p">,</span> <span class="n">fahrenheit</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">msg2</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/delegate_example_result.png"></p>
+
+<ul>
+<li>Event example<br/>
+Event是一种特殊类型的delegate，使用Event可以很方便的实现观察者模式。</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='C#'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">SampleEventArgs</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">SampleEventArgs</span><span class="p">(</span><span class="kt">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">Text</span> <span class="p">=</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">public</span> <span class="n">String</span> <span class="n">Text</span> <span class="p">{</span><span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;}</span> <span class="c1">// readonly</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">Publisher</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Declare the delegate (if using non-generic pattern).</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">delegate</span> <span class="k">void</span> <span class="nf">SampleEventHandler</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">SampleEventArgs</span> <span class="n">e</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Declare the event.</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">event</span> <span class="n">SampleEventHandler</span> <span class="n">SampleEvent</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Wrap the event in a protected virtual method</span>
+</span><span class='line'>    <span class="c1">// to enable derived classes to raise the event.</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">virtual</span> <span class="k">void</span> <span class="nf">RaiseSampleEvent</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// Raise the event by using the () operator.</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">SampleEvent</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">SampleEvent</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="k">new</span> <span class="n">SampleEventArgs</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Action example<br/>
+Action是一种语法糖，它是一种不需要提前声明的delegate，使得delegate的使用更加方便，局限性就是不能定义返回值。（Func&lt;> Delegates是一种可以定义返回值的语法糖）。</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='C#'><span class='line'><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.Text</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nn">ModernLanguageConstructs</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">Program</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// Part 1 - First action that takes an int and converts it to hex</span>
+</span><span class='line'>            <span class="n">Action</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">displayHex</span> <span class="p">=</span> <span class="k">delegate</span><span class="p">(</span><span class="kt">int</span> <span class="n">intValue</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">intValue</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="s">&quot;X&quot;</span><span class="p">));</span>
+</span><span class='line'>            <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">// Part 2 - Second action that takes a hex string and </span>
+</span><span class='line'>            <span class="c1">// converts it to an int</span>
+</span><span class='line'>            <span class="n">Action</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">displayInteger</span> <span class="p">=</span> <span class="k">delegate</span><span class="p">(</span><span class="kt">string</span> <span class="n">hexValue</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">hexValue</span><span class="p">,</span>
+</span><span class='line'>                    <span class="n">System</span><span class="p">.</span><span class="n">Globalization</span><span class="p">.</span><span class="n">NumberStyles</span><span class="p">.</span><span class="n">HexNumber</span><span class="p">));</span>
+</span><span class='line'>            <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">// Part 3 - exercise Action methods</span>
+</span><span class='line'>            <span class="n">displayHex</span><span class="p">(</span><span class="m">16</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">displayInteger</span><span class="p">(</span><span class="s">&quot;10&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>参考资料：<br/>
+1. <a href="http://blogs.msdn.com/b/brunoterkaly/archive/2012/03/02/c-delegates-actions-lambdas-keeping-it-super-simple.aspx">C# Delegates, Actions, Funcs, Lambdas–Keeping it super simple</a><br/>
+2. <a href="http://msdn.microsoft.com/zh-cn/library/8627sbea.aspx">event（C# 参考）</a></p></blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-09-19T20:01:41+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>8:01 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/csharplanguage/'>csharplanguage</a>, <a class='category' href='/blog/categories/unity/'>unity</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ariequ.github.io/blog/2014/09/19/delegate-event-action/" data-via="" data-counturl="http://ariequ.github.io/blog/2014/09/19/delegate-event-action/" >Tweet</a>
+  
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/09/17/behaviortree-fsm-limitfunction/" title="Previous Post: 行为树、状态机与条件功能函数漫谈">&laquo; 行为树、状态机与条件功能函数漫谈</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/09/23/behavior-tree/" title="Next Post: Behavior Tree(行为树)的C#实现">Behavior Tree(行为树)的C#实现 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/06/18/green-ninja/">Green Ninja</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/18/green-ninjia/">Green Ninjia</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/snake-preview/">Snake_preview</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/snake/">贪吃蛇+消除+俄罗斯方块</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/18/summary/">Summary</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

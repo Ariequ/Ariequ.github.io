@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>行为树、状态机与条件功能函数漫谈 - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="可能我们每天在代码过程中都会应用到行为树、状态机或者条件功能函数的某一部分，但是如果没有对对应概念的确切理解，就不能形成自己的词汇库，也就不能和别人产生心有灵犀的共鸣。这就是为什么要给词汇下定义，就是方便沟通，并且缩短沟通过程。就像我们和其他人讲述太阳的时候， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ariequ.github.io/blog/2014/09/17/behaviortree-fsm-limitfunction">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" -->
+<!--link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ariequ.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/blog/categories">Categories</a></li>
+  <li><a href="/blog/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">行为树、状态机与条件功能函数漫谈</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-17T20:09:11+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>8:09 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>可能我们每天在代码过程中都会应用到行为树、状态机或者条件功能函数的某一部分，但是如果没有对对应概念的确切理解，就不能形成自己的词汇库，也就不能和别人产生心有灵犀的共鸣。这就是为什么要给词汇下定义，就是方便沟通，并且缩短沟通过程。就像我们和其他人讲述太阳的时候，不再需要向别人描述那是一个圆圆亮亮的大火球，而是简单的“太阳”两个字就能表达。</p>
+
+<p>行为树定义了AI主体的智慧能力，这种智慧能力体现在AI主体可以根据环境变化而改变自身行为。在一棵完整的行为树中，叶子节点是AI主体所能执行的行为，而从根节点到叶子节点的路径就是AI主体的决策过程。</p>
+
+<p>状态机描述了状态和状态转移条件。状态被动接受条件变化，通过判断确定状态的变化。</p>
+
+<p>条件功能函数是指，在固定的触发点，通过判断预先定义的条件，如果条件满足，则执行对应的功能。这里定义的需要执行的功能，也可以是带有条件的功能组。条件功能函数也可以抽象为树形结构，判定与执行的过程就是遍历整棵树的过程。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-09-17T20:09:11+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>8:09 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/behaviortree/'>behaviortree</a>, <a class='category' href='/blog/categories/csharplanguage/'>csharplanguage</a>, <a class='category' href='/blog/categories/fsm/'>fsm</a>, <a class='category' href='/blog/categories/limitfunction/'>limitfunction</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ariequ.github.io/blog/2014/09/17/behaviortree-fsm-limitfunction/" data-via="" data-counturl="http://ariequ.github.io/blog/2014/09/17/behaviortree-fsm-limitfunction/" >Tweet</a>
+  
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/09/16/psd2ugui/" title="Previous Post: 从PSD UI制作到Unity UGUI生成的工作流">&laquo; 从PSD UI制作到Unity UGUI生成的工作流</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/09/19/delegate-event-action/" title="Next Post: Delegates Events and Actions in C#">Delegates Events and Actions in C# &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/06/18/green-ninja/">Green Ninja</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/18/green-ninjia/">Green Ninjia</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/snake-preview/">Snake_preview</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/snake/">贪吃蛇+消除+俄罗斯方块</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/18/summary/">Summary</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
