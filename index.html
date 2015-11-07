@@ -9,8 +9,7 @@
   <meta name="author" content="Your Name">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content=" Unity Web Player | Parachute ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,64 +67,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/06/18/green-ninja/">Green Ninja</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-06-18T23:56:39+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:56 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/06/18/green-ninjia/">Green Ninjia</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-06-18T23:56:24+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:56 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -748,6 +689,216 @@
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/24/parachute/">Parachute</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-24T23:48:57+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:48 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity Web Player | Parachute</title>
+    <script type='text/javascript' src='https://ssl-webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/jquery.min.js'></script>
+    <script type="text/javascript">
+    <!--
+    var unityObjectUrl = "http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject2.js";
+    if (document.location.protocol == 'https:')
+        unityObjectUrl = unityObjectUrl.replace("http://", "https://ssl-");
+    document.write('<script type="text\/javascript" src="' + unityObjectUrl + '"><\/script>');
+    -->
+    </script>
+    <script type="text/javascript">
+    <!--
+        var config = {
+            width: 320, 
+            height: 568,
+            params: { enableDebugging:"0" }
+            ,baseDownloadUrl: "http://webplayer.unity3d.com/download_webplayer-3.x/"
+        };
+        var u = new UnityObject2(config);
+
+        jQuery(function() {
+
+            var $missingScreen = jQuery("#unityPlayer").find(".missing");
+            var $brokenScreen = jQuery("#unityPlayer").find(".broken");
+            $missingScreen.hide();
+            $brokenScreen.hide();
+            
+            u.observeProgress(function (progress) {
+                switch(progress.pluginStatus) {
+                    case "broken":
+                        $brokenScreen.find("a").click(function (e) {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            u.installPlugin();
+                            return false;
+                        });
+                        $brokenScreen.show();
+                    break;
+                    case "missing":
+                        $missingScreen.find("a").click(function (e) {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            u.installPlugin();
+                            return false;
+                        });
+                        $missingScreen.show();
+                    break;
+                    case "installed":
+                        $missingScreen.remove();
+                    break;
+                    case "first":
+                    break;
+                }
+            });
+            u.initPlugin(jQuery("#unityPlayer")[0], "/unity/web_parachute.unity3d");
+        });
+    -->
+    </script>
+</div>
+
+
+<div>
+    <div class="content">
+        <div id="unityPlayer">
+            <div class="missing">
+                <a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+                    <img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
+                </a>
+            </div>
+            <div class="broken">
+                <a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now! Restart your browser after install.">
+                    <img alt="Unity Web Player. Install now! Restart your browser after install." src="http://webplayer.unity3d.com/installation/getunityrestart.png" width="193" height="63" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/23/behavior-tree/">Behavior Tree(行为树)的C#实现</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-23T22:26:46+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>10:26 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在做一个战场上士兵自动战斗的功能的时候，查看了很多关于Behavior Tree的相关内容。在Unity中也有很多现成的可视化插件工具，可以很方便的定义和实现Behavior Tree。但是因为种种不符合需求的问题，最终还是选择自己来实现Behavior Tree的机制。</p>
+
+<p>定义士兵的AI，使用的是XML配置文件，XML的结构与实际生成的Behavior Tree结构非常一致。</p>
+
+<p>Behavior Tree的结点类型包括Composite Node、Decorator Node、Condition Node、Action Node。其中Action Node是AI主体所能执行的具体行为，而通往各个叶子结点（Action Node）的路径就是Behavior Tree根据环境所做的决策过程。</p>
+
+<p>先来看一段士兵的Behavior Tree的配置文件</p>
+
+<figure class='code'><figcaption><span>Solider Behavior Tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="no">Selector</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Solider&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="no">Action</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.DieAction&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="no">Condition</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.DieCondition&quot;</span> <span class="sr">/&gt;</span>
+</span><span class='line'><span class="sr"> &lt;/</span><span class="no">Action</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="no">Action</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.IdelAction&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="no">Condition</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.NoEnemyCondition&quot;</span> <span class="sr">/&gt;</span>
+</span><span class='line'><span class="sr"> &lt;/</span><span class="no">Action</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="no">Decorator</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;RepeatDecorator&quot;</span> <span class="n">repeatCount</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="no">Sequence</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Attack_A&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>          <span class="o">&lt;</span><span class="no">Action</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.AttackAAction&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>          <span class="o">&lt;</span><span class="sr">/Action&gt;</span>
+</span><span class='line'><span class="sr">     &lt;/</span><span class="no">Sequence</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="sr">/Decorator&gt;</span>
+</span><span class='line'><span class="sr"> &lt;Decorator name=&quot;RepeatToSuccessDecorator&quot; repeatCount=&quot;1&quot;&gt;</span>
+</span><span class='line'><span class="sr">     &lt;Selector name=&quot;Move&quot;&gt;</span>
+</span><span class='line'><span class="sr">         &lt;Sequence name=&quot;MoveToTracingTarget&quot;&gt;</span>
+</span><span class='line'><span class="sr">             &lt;Action name=&quot;Battle.ChooseNewMoveTarget&quot; /</span><span class="o">&gt;</span>
+</span><span class='line'>              <span class="o">&lt;</span><span class="no">Action</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.MoveToTowoardTargetAttackingPlaceAction&quot;</span> <span class="sr">/&gt;</span>
+</span><span class='line'><span class="sr">         &lt;/</span><span class="no">Sequence</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="sr">/Selector&gt;</span>
+</span><span class='line'><span class="sr"> &lt;/</span><span class="no">Decorator</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="no">Selector</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Solider_Attacked&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="no">Condition</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;NOTCondition&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>          <span class="o">&lt;</span><span class="no">Condition</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;EqualCondition&quot;</span> <span class="n">property</span><span class="o">=</span><span class="s2">&quot;attackStatus&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="sr">/&gt;</span>
+</span><span class='line'><span class="sr">     &lt;/</span><span class="no">Condition</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="no">Action</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;Battle.BackAction&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>          <span class="o">&lt;</span><span class="no">Condition</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;EqualCondition&quot;</span> <span class="n">property</span><span class="o">=</span><span class="s2">&quot;attackStatus&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;2&quot;</span> <span class="sr">/&gt;</span>
+</span><span class='line'><span class="sr">     &lt;/</span><span class="no">Action</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="sr">/Selector&gt;</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="no">Selector</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这段配置定义了士兵的行为，包括死亡、Idle、攻击、移动的相关决策行为和决策条件。通过结点的名称也很容易就能够推断出所要实现的功能。</p>
+
+<p>Behavior的实现</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -763,14 +914,6 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/06/18/green-ninja/">Green Ninja</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/18/green-ninjia/">Green Ninjia</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2015/01/03/snake-preview/">Snake_preview</a>
       </li>
     
@@ -780,6 +923,14 @@
     
       <li class="post">
         <a href="/blog/2014/12/18/summary/">Summary</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/17/parachute-page/">一撸到底</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/30/model-animation-viewer/">模型动画查看器</a>
       </li>
     
   </ul>
