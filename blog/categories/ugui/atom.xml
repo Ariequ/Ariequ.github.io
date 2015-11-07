@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Ugui | My Octopress Blog]]></title>
-  <link href="http://ariequ.github.io/blog/categories/ugui/atom.xml" rel="self"/>
-  <link href="http://ariequ.github.io/"/>
-  <updated>2015-11-07T19:00:42+08:00</updated>
-  <id>http://ariequ.github.io/</id>
+  <title><![CDATA[Category: Ugui | 独立游戏的诞生]]></title>
+  <link href="http://Ariequ.github.io/blog/categories/ugui/atom.xml" rel="self"/>
+  <link href="http://Ariequ.github.io/"/>
+  <updated>2015-11-07T19:52:29+08:00</updated>
+  <id>http://Ariequ.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Ariequ]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[从PSD UI制作到Unity UGUI生成的工作流]]></title>
-    <link href="http://ariequ.github.io/blog/2014/09/16/psd2ugui/"/>
+    <link href="http://Ariequ.github.io/blog/2014/09/16/psd2ugui/"/>
     <updated>2014-09-16T22:31:04+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/09/16/psd2ugui</id>
+    <id>http://Ariequ.github.io/blog/2014/09/16/psd2ugui</id>
     <content type="html"><![CDATA[<p>Unity在4.6版本中将要发布新的UI系统UGUI, 关于UGUI的介绍,请查看<a href="http://blogs.unity3d.com/2014/05/28/overview-of-the-new-ui-system/">Overview of the New UI System</a>。</p>
 
 <pre><code>一般来说，游戏UI的制作步骤为:  

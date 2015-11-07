@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Limitfunction | My Octopress Blog]]></title>
-  <link href="http://ariequ.github.io/blog/categories/limitfunction/atom.xml" rel="self"/>
-  <link href="http://ariequ.github.io/"/>
-  <updated>2015-11-07T19:00:42+08:00</updated>
-  <id>http://ariequ.github.io/</id>
+  <title><![CDATA[Category: Limitfunction | 独立游戏的诞生]]></title>
+  <link href="http://Ariequ.github.io/blog/categories/limitfunction/atom.xml" rel="self"/>
+  <link href="http://Ariequ.github.io/"/>
+  <updated>2015-11-07T19:52:29+08:00</updated>
+  <id>http://Ariequ.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Ariequ]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[行为树、状态机与条件功能函数漫谈]]></title>
-    <link href="http://ariequ.github.io/blog/2014/09/17/behaviortree-fsm-limitfunction/"/>
+    <link href="http://Ariequ.github.io/blog/2014/09/17/behaviortree-fsm-limitfunction/"/>
     <updated>2014-09-17T20:09:11+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/09/17/behaviortree-fsm-limitfunction</id>
+    <id>http://Ariequ.github.io/blog/2014/09/17/behaviortree-fsm-limitfunction</id>
     <content type="html"><![CDATA[<p>可能我们每天在代码过程中都会应用到行为树、状态机或者条件功能函数的某一部分，但是如果没有对对应概念的确切理解，就不能形成自己的词汇库，也就不能和别人产生心有灵犀的共鸣。这就是为什么要给词汇下定义，就是方便沟通，并且缩短沟通过程。就像我们和其他人讲述太阳的时候，不再需要向别人描述那是一个圆圆亮亮的大火球，而是简单的“太阳”两个字就能表达。</p>
 
 <p>行为树定义了AI主体的智慧能力，这种智慧能力体现在AI主体可以根据环境变化而改变自身行为。在一棵完整的行为树中，叶子节点是AI主体所能执行的行为，而从根节点到叶子节点的路径就是AI主体的决策过程。</p>

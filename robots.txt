@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://ariequ.github.io/sitemap.xml 
+Sitemap: http://Ariequ.github.io/sitemap.xml 

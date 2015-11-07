@@ -1,112 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://ariequ.github.io/atom.xml" rel="self"/>
-  <link href="http://ariequ.github.io/"/>
-  <updated>2015-11-07T19:00:42+08:00</updated>
-  <id>http://ariequ.github.io/</id>
+  <title><![CDATA[独立游戏的诞生]]></title>
+  <link href="http://Ariequ.github.io/atom.xml" rel="self"/>
+  <link href="http://Ariequ.github.io/"/>
+  <updated>2015-11-07T19:52:29+08:00</updated>
+  <id>http://Ariequ.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Ariequ]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
-    <title type="html"><![CDATA[Snake_preview]]></title>
-    <link href="http://ariequ.github.io/blog/2015/01/03/snake-preview/"/>
-    <updated>2015-01-03T21:29:09+08:00</updated>
-    <id>http://ariequ.github.io/blog/2015/01/03/snake-preview</id>
-    <content type="html"><![CDATA[<div>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity Web Player | Parachute</title>
-    <script type='text/javascript' src='https://ssl-webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/jquery.min.js'></script>
-    <script type="text/javascript">
-    <!--
-    var unityObjectUrl = "http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject2.js";
-    if (document.location.protocol == 'https:')
-        unityObjectUrl = unityObjectUrl.replace("http://", "https://ssl-");
-    document.write('<script type="text\/javascript" src="' + unityObjectUrl + '"><\/script>');
-    -->
-    </script>
-    <script type="text/javascript">
-    <!--
-        var config = {
-            width: 320, 
-            height: 568,
-            params: { enableDebugging:"0" }
-            ,baseDownloadUrl: "http://webplayer.unity3d.com/download_webplayer-3.x/"
-        };
-        var u = new UnityObject2(config);
-
-        jQuery(function() {
-
-            var $missingScreen = jQuery("#unityPlayer").find(".missing");
-            var $brokenScreen = jQuery("#unityPlayer").find(".broken");
-            $missingScreen.hide();
-            $brokenScreen.hide();
-            
-            u.observeProgress(function (progress) {
-                switch(progress.pluginStatus) {
-                    case "broken":
-                        $brokenScreen.find("a").click(function (e) {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            u.installPlugin();
-                            return false;
-                        });
-                        $brokenScreen.show();
-                    break;
-                    case "missing":
-                        $missingScreen.find("a").click(function (e) {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            u.installPlugin();
-                            return false;
-                        });
-                        $missingScreen.show();
-                    break;
-                    case "installed":
-                        $missingScreen.remove();
-                    break;
-                    case "first":
-                    break;
-                }
-            });
-            u.initPlugin(jQuery("#unityPlayer")[0], "/unity/snake.unity3d");
-        });
-    -->
-    </script>
-</div>
-
-
-<div>
-    <div class="content">
-        <div id="unityPlayer">
-            <div class="missing">
-                <a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
-                    <img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
-                </a>
-            </div>
-            <div class="broken">
-                <a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now! Restart your browser after install.">
-                    <img alt="Unity Web Player. Install now! Restart your browser after install." src="http://webplayer.unity3d.com/installation/getunityrestart.png" width="193" height="63" />
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[贪吃蛇+消除+俄罗斯方块]]></title>
-    <link href="http://ariequ.github.io/blog/2015/01/03/snake/"/>
+    <link href="http://Ariequ.github.io/blog/2015/01/03/snake/"/>
     <updated>2015-01-03T17:23:52+08:00</updated>
-    <id>http://ariequ.github.io/blog/2015/01/03/snake</id>
-    <content type="html"><![CDATA[<p><img src="http://ariequ.github.io/images/snake.gif"></p>
+    <id>http://Ariequ.github.io/blog/2015/01/03/snake</id>
+    <content type="html"><![CDATA[<p><img src="http://Ariequ.github.io/images/snake.gif"></p>
 
 <p>最近在构思一个新的游戏，采用纯色快的风格，游戏规则是贪吃蛇与消除的结合，立方体的造型又有俄罗斯方块的感觉。</p>
 
@@ -124,23 +36,14 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Summary]]></title>
-    <link href="http://ariequ.github.io/blog/2014/12/18/summary/"/>
-    <updated>2014-12-18T22:48:20+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/12/18/summary</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[一撸到底]]></title>
-    <link href="http://ariequ.github.io/blog/2014/12/17/parachute-page/"/>
+    <link href="http://Ariequ.github.io/blog/2014/12/17/parachute-page/"/>
     <updated>2014-12-17T12:31:38+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/12/17/parachute-page</id>
+    <id>http://Ariequ.github.io/blog/2014/12/17/parachute-page</id>
     <content type="html"><![CDATA[<p><a href="https://itunes.apple.com/cn/app/fall-down-100/id936408830?l=zh&ls=1&mt=8">
-<img src="http://ariequ.github.io/images/app.png">
+<img src="http://Ariequ.github.io/images/app.png">
 </a><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.ariequ.parachute">
-<img src="http://ariequ.github.io/images/android.png">
+<img src="http://Ariequ.github.io/images/android.png">
 </a></p>
 
 <p>一撸到底是一款精致打造的击破地心引力的生存游戏。高度落体中需要你躲避突入的岩石，绕开致命的炮弹。无害又可爱的乌鸦以及金币是你坠落过程的好朋友。</p>
@@ -161,24 +64,24 @@
 爆棚的成就感
 </code></pre>
 
-<p><img src="http://ariequ.github.io/images/parachute_1.jpg" width="150">
-<img src="http://ariequ.github.io/images/parachute_2.jpg" width="150">
-<img src="http://ariequ.github.io/images/parachute_3.jpg" width="150">
-<img src="http://ariequ.github.io/images/parachute_4.jpg" width="150"></p>
+<p><img src="http://Ariequ.github.io/images/parachute_1.jpg" width="150">
+<img src="http://Ariequ.github.io/images/parachute_2.jpg" width="150">
+<img src="http://Ariequ.github.io/images/parachute_3.jpg" width="150">
+<img src="http://Ariequ.github.io/images/parachute_4.jpg" width="150"></p>
 
 <p><a href="https://itunes.apple.com/cn/app/fall-down-100/id936408830?l=zh&ls=1&mt=8">
-<img src="http://ariequ.github.io/images/app.png">
+<img src="http://Ariequ.github.io/images/app.png">
 </a><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.ariequ.parachute">
-<img src="http://ariequ.github.io/images/android.png">
+<img src="http://Ariequ.github.io/images/android.png">
 </a></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[模型动画查看器]]></title>
-    <link href="http://ariequ.github.io/blog/2014/10/30/model-animation-viewer/"/>
+    <link href="http://Ariequ.github.io/blog/2014/10/30/model-animation-viewer/"/>
     <updated>2014-10-30T23:48:44+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/10/30/model-animation-viewer</id>
+    <id>http://Ariequ.github.io/blog/2014/10/30/model-animation-viewer</id>
     <content type="html"><![CDATA[<p>美术制作的3D模型动画文件，没有很好的预览手段，往往需要手动创建Animator,然后再拖对应的动画文件到State中，在模型动画数量增多的时候，手动处理这些问题往往是耗时低效的。所以就有了制作模型动画查看器的需求。</p>
 
 <p>基本的思路为读取模型文件，创建Animation Controller, 将动画文件添加到Animation Controller的Layer，并建立不同状态间的Transition. 代码如下:</p>
@@ -370,9 +273,9 @@
   
   <entry>
     <title type="html"><![CDATA[BasketBallCourt_Fight]]></title>
-    <link href="http://ariequ.github.io/blog/2014/10/11/basketballcourt-fight/"/>
+    <link href="http://Ariequ.github.io/blog/2014/10/11/basketballcourt-fight/"/>
     <updated>2014-10-11T00:23:24+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/10/11/basketballcourt-fight</id>
+    <id>http://Ariequ.github.io/blog/2014/10/11/basketballcourt-fight</id>
     <content type="html"><![CDATA[<div>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>BasketBallCourtFight</title>
@@ -458,27 +361,27 @@
   
   <entry>
     <title type="html"><![CDATA[Unity使用Humanoid类型动画发生错位问题解析]]></title>
-    <link href="http://ariequ.github.io/blog/2014/10/11/humanoid-animation-import-issue-explain/"/>
+    <link href="http://Ariequ.github.io/blog/2014/10/11/humanoid-animation-import-issue-explain/"/>
     <updated>2014-10-11T00:21:55+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/10/11/humanoid-animation-import-issue-explain</id>
+    <id>http://Ariequ.github.io/blog/2014/10/11/humanoid-animation-import-issue-explain</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[DllEventIssueFix]]></title>
-    <link href="http://ariequ.github.io/blog/2014/10/11/dlleventissuefix/"/>
+    <link href="http://Ariequ.github.io/blog/2014/10/11/dlleventissuefix/"/>
     <updated>2014-10-11T00:17:37+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/10/11/dlleventissuefix</id>
+    <id>http://Ariequ.github.io/blog/2014/10/11/dlleventissuefix</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Parachute]]></title>
-    <link href="http://ariequ.github.io/blog/2014/09/24/parachute/"/>
+    <link href="http://Ariequ.github.io/blog/2014/09/24/parachute/"/>
     <updated>2014-09-24T23:48:57+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/09/24/parachute</id>
+    <id>http://Ariequ.github.io/blog/2014/09/24/parachute</id>
     <content type="html"><![CDATA[<div>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity Web Player | Parachute</title>
@@ -564,9 +467,9 @@
   
   <entry>
     <title type="html"><![CDATA[Behavior Tree(行为树)的C#实现]]></title>
-    <link href="http://ariequ.github.io/blog/2014/09/23/behavior-tree/"/>
+    <link href="http://Ariequ.github.io/blog/2014/09/23/behavior-tree/"/>
     <updated>2014-09-23T22:26:46+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/09/23/behavior-tree</id>
+    <id>http://Ariequ.github.io/blog/2014/09/23/behavior-tree</id>
     <content type="html"><![CDATA[<p>在做一个战场上士兵自动战斗的功能的时候，查看了很多关于Behavior Tree的相关内容。在Unity中也有很多现成的可视化插件工具，可以很方便的定义和实现Behavior Tree。但是因为种种不符合需求的问题，最终还是选择自己来实现Behavior Tree的机制。</p>
 
 <p>定义士兵的AI，使用的是XML配置文件，XML的结构与实际生成的Behavior Tree结构非常一致。</p>
@@ -646,9 +549,9 @@
   
   <entry>
     <title type="html"><![CDATA[Delegates Events and Actions in C#]]></title>
-    <link href="http://ariequ.github.io/blog/2014/09/19/delegate-event-action/"/>
+    <link href="http://Ariequ.github.io/blog/2014/09/19/delegate-event-action/"/>
     <updated>2014-09-19T20:01:41+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/09/19/delegate-event-action</id>
+    <id>http://Ariequ.github.io/blog/2014/09/19/delegate-event-action</id>
     <content type="html"><![CDATA[<ul>
 <li>delegate  example</li>
 </ul>
@@ -781,7 +684,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><img src="http://ariequ.github.io/images/delegate_example_result.png"></p>
+<p><img src="http://Ariequ.github.io/images/delegate_example_result.png"></p>
 
 <ul>
 <li>Event example<br/>
@@ -915,9 +818,9 @@ Action是一种语法糖，它是一种不需要提前声明的delegate，使得
   
   <entry>
     <title type="html"><![CDATA[行为树、状态机与条件功能函数漫谈]]></title>
-    <link href="http://ariequ.github.io/blog/2014/09/17/behaviortree-fsm-limitfunction/"/>
+    <link href="http://Ariequ.github.io/blog/2014/09/17/behaviortree-fsm-limitfunction/"/>
     <updated>2014-09-17T20:09:11+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/09/17/behaviortree-fsm-limitfunction</id>
+    <id>http://Ariequ.github.io/blog/2014/09/17/behaviortree-fsm-limitfunction</id>
     <content type="html"><![CDATA[<p>可能我们每天在代码过程中都会应用到行为树、状态机或者条件功能函数的某一部分，但是如果没有对对应概念的确切理解，就不能形成自己的词汇库，也就不能和别人产生心有灵犀的共鸣。这就是为什么要给词汇下定义，就是方便沟通，并且缩短沟通过程。就像我们和其他人讲述太阳的时候，不再需要向别人描述那是一个圆圆亮亮的大火球，而是简单的“太阳”两个字就能表达。</p>
 
 <p>行为树定义了AI主体的智慧能力，这种智慧能力体现在AI主体可以根据环境变化而改变自身行为。在一棵完整的行为树中，叶子节点是AI主体所能执行的行为，而从根节点到叶子节点的路径就是AI主体的决策过程。</p>
@@ -930,9 +833,9 @@ Action是一种语法糖，它是一种不需要提前声明的delegate，使得
   
   <entry>
     <title type="html"><![CDATA[从PSD UI制作到Unity UGUI生成的工作流]]></title>
-    <link href="http://ariequ.github.io/blog/2014/09/16/psd2ugui/"/>
+    <link href="http://Ariequ.github.io/blog/2014/09/16/psd2ugui/"/>
     <updated>2014-09-16T22:31:04+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/09/16/psd2ugui</id>
+    <id>http://Ariequ.github.io/blog/2014/09/16/psd2ugui</id>
     <content type="html"><![CDATA[<p>Unity在4.6版本中将要发布新的UI系统UGUI, 关于UGUI的介绍,请查看<a href="http://blogs.unity3d.com/2014/05/28/overview-of-the-new-ui-system/">Overview of the New UI System</a>。</p>
 
 <pre><code>一般来说，游戏UI的制作步骤为:  
@@ -956,8 +859,8 @@ Action是一种语法糖，它是一种不需要提前声明的delegate，使得
 
 <h5>PSD预览与对应的层级结构</h5>
 
-<p><img class="left" src="http://ariequ.github.io/images/0916_2.png" width="400">
-<img class="left" src="http://ariequ.github.io/images/0916_1.png" width="290"></p>
+<p><img class="left" src="http://Ariequ.github.io/images/0916_2.png" width="400">
+<img class="left" src="http://Ariequ.github.io/images/0916_1.png" width="290"></p>
 
 <h5>资源复用问题</h5>
 
@@ -974,9 +877,9 @@ Action是一种语法糖，它是一种不需要提前声明的delegate，使得
   
   <entry>
     <title type="html"><![CDATA[基于GitHub + Octopress博客搭建与MarkDown语法初试]]></title>
-    <link href="http://ariequ.github.io/blog/2014/09/11/first-blog/"/>
+    <link href="http://Ariequ.github.io/blog/2014/09/11/first-blog/"/>
     <updated>2014-09-11T00:53:12+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/09/11/first-blog</id>
+    <id>http://Ariequ.github.io/blog/2014/09/11/first-blog</id>
     <content type="html"><![CDATA[<p>通过GitHub + Octopress搭建了这个静态博客。替换了默认模板的favicon。希望可以坚持写下去。主要是记录独立游戏的开发过程，希望能够对自己有益，如果恰巧也能对他人有益，就更好了。</p>
 
 <p>现在还不太了解Markdown的语法，默认的模板也不太喜欢。文章的排版和博客样式统统都要改改改。不管内容，首先还是要好看。</p>
@@ -995,7 +898,7 @@ Action是一种语法糖，它是一种不需要提前声明的delegate，使得
 
 <p><strong>其中图片是放在images路径下。</strong></p>
 
-<p><img src="http://ariequ.github.io/images/A-Team-Logo.png" width="200"></p>
+<p><img src="http://Ariequ.github.io/images/A-Team-Logo.png" width="200"></p>
 
 <h4>插入代码的方法，使用<a href="http://octopress.org/docs/blogging/code/">Sharing Code Snippets</a></h4>
 

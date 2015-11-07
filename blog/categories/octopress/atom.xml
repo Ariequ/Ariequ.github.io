@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Octopress | My Octopress Blog]]></title>
-  <link href="http://ariequ.github.io/blog/categories/octopress/atom.xml" rel="self"/>
-  <link href="http://ariequ.github.io/"/>
-  <updated>2015-11-07T19:00:42+08:00</updated>
-  <id>http://ariequ.github.io/</id>
+  <title><![CDATA[Category: Octopress | 独立游戏的诞生]]></title>
+  <link href="http://Ariequ.github.io/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://Ariequ.github.io/"/>
+  <updated>2015-11-07T19:52:29+08:00</updated>
+  <id>http://Ariequ.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Ariequ]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[基于GitHub + Octopress博客搭建与MarkDown语法初试]]></title>
-    <link href="http://ariequ.github.io/blog/2014/09/11/first-blog/"/>
+    <link href="http://Ariequ.github.io/blog/2014/09/11/first-blog/"/>
     <updated>2014-09-11T00:53:12+08:00</updated>
-    <id>http://ariequ.github.io/blog/2014/09/11/first-blog</id>
+    <id>http://Ariequ.github.io/blog/2014/09/11/first-blog</id>
     <content type="html"><![CDATA[<p>通过GitHub + Octopress搭建了这个静态博客。替换了默认模板的favicon。希望可以坚持写下去。主要是记录独立游戏的开发过程，希望能够对自己有益，如果恰巧也能对他人有益，就更好了。</p>
 
 <p>现在还不太了解Markdown的语法，默认的模板也不太喜欢。文章的排版和博客样式统统都要改改改。不管内容，首先还是要好看。</p>
