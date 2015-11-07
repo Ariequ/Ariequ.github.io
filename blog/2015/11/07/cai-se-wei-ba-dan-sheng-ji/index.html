@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Categories - 独立游戏的诞生</title>
+  <title>彩色尾巴诞生记 - 独立游戏的诞生</title>
   <meta name="author" content="Ariequ">
 
   
-  <meta name="description" content="Categories Sep 14th, 2014 11:36 pm Octopress [ 1 ] Unity [ 3 ] Psd [ 1 ] Ugui [ 1 ] Behaviortree [ 2 ] Fsm [ 1 ] Limitfunction [ 1 ] Csharplanguage &hellip;">
+  <meta name="description" content="清除的记得彩色尾巴这个游戏的第一次代码提交是2015年的1月1日，到今天写这篇文章已经11个月了。 这期间游戏从无到有，一点一点的由雏形到最终的成品，整个过程也是值得记录一下。 游戏的想法源自一个随机的想法，就是俄罗斯方块贪吃蛇消除的一个大混杂。 所以游戏的第一版是随机的色块， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://Ariequ.github.io/blog/categories">
+  <link rel="canonical" href="http://Ariequ.github.io/blog/2015/11/07/cai-se-wei-ba-dan-sheng-ji">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="独立游戏的诞生" type="application/atom+xml">
@@ -78,55 +78,79 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Categories</h1>
-    <p class="meta">
-
-
-
-
-<time class='entry-date' datetime='2014-09-14T23:36:00+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:36 pm</span></time></p>
-  </header>
-  
-  <ul>
-
-    <li><a href="/blog/categories/octopress/">Octopress</a> [ 1 ]</li>
-
-    <li><a href="/blog/categories/unity/">Unity</a> [ 3 ]</li>
-
-    <li><a href="/blog/categories/psd/">Psd</a> [ 1 ]</li>
-
-    <li><a href="/blog/categories/ugui/">Ugui</a> [ 1 ]</li>
-
-    <li><a href="/blog/categories/behaviortree/">Behaviortree</a> [ 2 ]</li>
-
-    <li><a href="/blog/categories/fsm/">Fsm</a> [ 1 ]</li>
-
-    <li><a href="/blog/categories/limitfunction/">Limitfunction</a> [ 1 ]</li>
-
-    <li><a href="/blog/categories/csharplanguage/">Csharplanguage</a> [ 2 ]</li>
-
-    <li><a href="/blog/categories/game design/">Game design</a> [ 1 ]</li>
-
-</ul>
-
-
-  
-    <footer>
+    
+      <h1 class="entry-title">彩色尾巴诞生记</h1>
+    
+    
       <p class="meta">
         
-        
 
 
 
 
-<time class='entry-date' datetime='2014-09-14T23:36:00+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:36 pm</span></time>
+<time class='entry-date' datetime='2015-11-07T21:10:25+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:10 pm</span></time>
         
       </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>清除的记得彩色尾巴这个游戏的第一次代码提交是2015年的1月1日，到今天写这篇文章已经11个月了。</p>
+
+<p>这期间游戏从无到有，一点一点的由雏形到最终的成品，整个过程也是值得记录一下。</p>
+
+<p>游戏的想法源自一个随机的想法，就是俄罗斯方块贪吃蛇消除的一个大混杂。</p>
+
+<p>所以游戏的第一版是随机的色块，玩家控制角色的上下左右移动方向。</p>
+
+<p><img src="/images/demo1.gif" width="150"></p>
+
+<p>完成了角色的方向控制，接下来要解决的就是如何搭配消除的规则，实现的手段就是吃到一个方块就把这个方块接在头部，当吃到三个连续色块时，相同的色块就消除了。</p>
+
+<p><img src="/images/demo2.gif" width="150"></p>
+
+<p>当采用滑动操作来控制四个移动方向时，觉得还是有点不太适宜触屏，所以经过思考，决定把移动方向缩减到两维，通过点击操作来在两种方向上切换。同时为了简化游戏操作，在屏幕边界做了自动转向的设定。游戏的视角也从俯视，变成了后方45度。</p>
+
+<p><img src="/images/demo3.gif" width="150"></p>
+
+<p>考虑到主角的头应该是玩家注意力集中的地方，所以把吃到的方块接到尾巴上是一个更好的选择，方块从吃到接到尾巴，采用了先放大吃到的方块，等到它到达尾巴的位置才开始移动的方式。此时的消除也是吃到三个相同即产生消除。角色的移动也从离散式变为了连续式。</p>
+
+<p><img src="/images/demo4.gif" width="150"></p>
+
+<p>由于消除只发生在一维，所以并不能产生连消的效果，二连消恰恰又是消除游戏的一个核心玩法，最后决定的方法是可以接到更长的相同的颜色，消除发生在接到一个不同的方块时。同时游戏内增加了动画表现。</p>
+
+<p><img src="/images/demo5.gif" width="150"></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
       
-        <div class="sharing">
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ariequ</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-11-07T21:10:25+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:10 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/game-design/'>game design</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
   
   
   
@@ -166,9 +190,14 @@ var duoshuoQuery = {short_name:"ariequ"};
   
 </div>
 
+    
+    <p class="meta">
       
-    </footer>
-  
+        <a class="basic-alignment left" href="/blog/2015/01/03/snake/" title="Previous Post: 贪吃蛇+消除+俄罗斯方块">&laquo; 贪吃蛇+消除+俄罗斯方块</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>

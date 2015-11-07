@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://Ariequ.github.io/blog/2015/11/07/cai-se-wei-ba-dan-sheng-ji/</loc>
+    <lastmod>2015-11-07T21:10:25+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://Ariequ.github.io/blog/2015/01/03/snake/</loc>
     <lastmod>2015-01-03T17:23:52+08:00</lastmod>
   </url>
@@ -83,5 +87,8 @@
   </url>
   <url>
     <loc>http://Ariequ.github.io/blog/categories/csharplanguage/</loc>
+  </url>
+  <url>
+    <loc>http://Ariequ.github.io/blog/categories/game-design/</loc>
   </url>
 </urlset>
